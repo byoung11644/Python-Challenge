@@ -1,7 +1,11 @@
+
 import csv
 import os
 
+
+
 csvpath = os.path.join("Resources", "budget_data.csv")
+
 with open(csvpath) as csvfile:
     
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -47,7 +51,9 @@ with open(csvpath) as csvfile:
                
 changeList.pop(0)
 averageChange = sum(changeList) / float(len(changeList))
-    
+
+print('Financial Analysis')
+print('----------------------------')    
 print('Total Months: ' + str(months))
 print('Total Profit/Loss: $' + '{:.2f}'.format(netProfit))
 print('Average Change: $' + '{:.2f}'.format((averageChange)))
