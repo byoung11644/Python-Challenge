@@ -10,6 +10,7 @@ with open(csvpath) as csvfile:
     totalVotes = 0
     candidatesList = []
     candidateVotes = {i : 0 for i in candidatesList}
+        
     
     for row in csvreader:
         totalVotes = totalVotes + 1
@@ -20,17 +21,24 @@ with open(csvpath) as csvfile:
         else:
             candidateVotes[row[2]] = int(candidateVotes[row[2]]) + 1
     
-            
-            
-            
+
+
+def electionResults(csvreader):
     
+    print("Election Results")
+    print("----------------------------")
+    print(f"Total Votes: {totalVotes}")
+    print("----------------------------")
     
-            
-            
+    for key, value in candidateVotes.items():
+        votePercentage = (value / totalVotes)
+        votePercentage = "{:.3%}".format(votePercentage)
+        print(f"{key}: {votePercentage} ({value})")
         
-        
-        
-        
-#print(totalVotes)
-#print(candidatesList)
-print(candidateVotes)
+    print("----------------------------")
+    print(f"Winner: {max(candidateVotes, key=candidateVotes.get)}")
+    
+
+
+
+electionResults(csvreader)      
