@@ -40,5 +40,10 @@ def electionResults(csvreader):
     
 
 
+output = electionResults(csvreader)
+txt_path = open('ElectionResults.txt','w')
+txt_path.write(str(output))
 
-electionResults(csvreader)      
+    
+
+electionResults(csvreader)
