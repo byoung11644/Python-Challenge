@@ -2,48 +2,49 @@ import csv
 import os
 
 csvpath = os.path.join("Resources", "election_data.csv")
-with open(csvpath) as csvfile:
+textpath = os.path.join("ElectionResults.txt")
+
+with open(textpath, "w") as textFile:    
+    with open(csvpath) as csvfile:
     
-    csvreader = csv.reader(csvfile, delimiter=',')
-    csv_header = next(csvreader)
+        csvreader = csv.reader(csvfile, delimiter=',')
+        csv_header = next(csvreader)
     
-    totalVotes = 0
-    candidatesList = []
-    candidateVotes = {i : 0 for i in candidatesList}
+        totalVotes = 0
+        candidatesList = []
+        candidateVotes = {i : 0 for i in candidatesList}
         
     
-    for row in csvreader:
-        totalVotes = totalVotes + 1
+        for row in csvreader:
+            totalVotes = totalVotes + 1
         
-        if row[2] not in candidatesList:
-            candidatesList.append(row[2])
-            candidateVotes[row[2]] = 1
-        else:
-            candidateVotes[row[2]] = int(candidateVotes[row[2]]) + 1
+            if row[2] not in candidatesList:
+                candidatesList.append(row[2])
+                candidateVotes[row[2]] = 1
+            else:
+                candidateVotes[row[2]] = int(candidateVotes[row[2]]) + 1
     
 
 
-def electionResults(csvreader):
+        def electionResults(csvreader):
     
-    print("Election Results")
-    print("----------------------------")
-    print(f"Total Votes: {totalVotes}")
-    print("----------------------------")
+            print("Election Results")
+            print("----------------------------")
+            print(f"Total Votes: {totalVotes}")
+            print("----------------------------")
     
-    for key, value in candidateVotes.items():
-        votePercentage = (value / totalVotes)
-        votePercentage = "{:.3%}".format(votePercentage)
-        print(f"{key}: {votePercentage} ({value})")
+            for key, value in candidateVotes.items():
+                votePercentage = (value / totalVotes)
+                votePercentage = "{:.3%}".format(votePercentage)
+                print(f"{key}: {votePercentage} ({value})")
         
-    print("----------------------------")
-    print(f"Winner: {max(candidateVotes, key=candidateVotes.get)}")
-    
-
-
-output = electionResults(csvreader)
-txt_path = open('ElectionResults.txt','w')
-txt_path.write(str(output))
+            print("----------------------------")
+            print(f"Winner: {max(candidateVotes, key=candidateVotes.get)}")
 
     
 
-electionResults(csvreader)
+
+    electionResults(csvreader)
+
+
+textFile.close()
