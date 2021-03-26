@@ -3,12 +3,13 @@ import csv
 import os
 
 
-
+#Copy in the .csv path and open
 csvpath = os.path.join("Resources", "budget_data.csv")
 
 with open(csvpath) as csvfile:
     
     csvreader = csv.reader(csvfile, delimiter=',')
+    # Extract first row headers to avoid appending
     csv_header = next(csvreader)
     
     months = 0
@@ -20,8 +21,9 @@ with open(csvpath) as csvfile:
     highestLoss = 0
     lowestMonth = 0
 
-    
+    #Loop through for each row
     for row in csvreader:
+        #Track the months and changes to a list
         months = months + 1
         
         netProfit = float(row[1]) + netProfit
@@ -31,7 +33,7 @@ with open(csvpath) as csvfile:
         changeList.append(monthChange)
         
         prevMonth = float(row[1])
-            
+        #Check for the max and min gain or month    
         if float(row[1]) > float(highestGain):
             highestGain = row[1]
             highestMonth = row[0]
@@ -48,7 +50,7 @@ with open(csvpath) as csvfile:
             
     
         
-               
+#Drop first row change and get the average               
 changeList.pop(0)
 averageChange = sum(changeList) / float(len(changeList))
 
